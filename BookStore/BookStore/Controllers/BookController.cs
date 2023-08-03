@@ -76,6 +76,7 @@ namespace BookStore.Controllers
             if (book == null) { return NotFound(); }
 
             _bookDbContext.Books.Remove(book);
+            await _bookDbContext.SaveChangesAsync();
             return NoContent();
         }
     }
