@@ -49,7 +49,7 @@ namespace BookStore.Controllers
         }
 
         [HttpPut("{id:Guid}")]
-        public async Task<IActionResult> UpdateBook([FromBody] Book newBook, Guid id)
+        public async Task<IActionResult> UpdateBook(Book newBook, Guid id)
         {
            if(newBook.Id != id) { return BadRequest(); }
 
@@ -64,9 +64,19 @@ namespace BookStore.Controllers
             book.Title = newBook.Title;
             book.PublicationDate = newBook.PublicationDate;
 
-            await _bookDbContext.Books.AddAsync(book);
             await _bookDbContext.SaveChangesAsync();
-            return Ok(book);
+            return NoContent();
+        }
+
+        [HttpDelete("{id:Guid}")]
+        public async Task<IActionResult> DeleteBook(Guid id)
+        {
+            Book book = await _bookDbContext.Books.FindAsync(id);
+
+            if (book == null) { return NotFound(); }
+
+            _bookDbContext.Books.Remove(book);
+            return NoContent();
         }
     }
 }
