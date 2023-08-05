@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Book } from 'src/app/model/book';
+import { BooksService } from 'src/app/services/books.service';
 
 @Component({
   selector: 'app-book-list',
@@ -7,23 +8,22 @@ import { Book } from 'src/app/model/book';
   styleUrls: ['./book-list.component.css']
 })
 export class BookListComponent implements OnInit {
+  books : Book[] = []
+
+  /**
+   *
+   */
+  constructor(private booksService: BooksService) {}
+
+
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    this.booksService.getAllBooks()
+      .subscribe({
+        next: (books) => this.books = books,
+        error: (err) => console.log(err.message)
+      })
   }
   
-  books : Book[] = [
-   /* {
-      id:'jhg',
-      title: 'naruto',
-      author: 'sasan',
-      publicationDate: new Date('2000-09-18').toLocaleDateString()
-    },
-    {
-      id:'jg',
-      title: 'naruuuuto',
-      author: 'saaaasan',
-      publicationDate: new Date('2010-09-18').toLocaleDateString()
-    }*/
-  ]
+   
 
 }

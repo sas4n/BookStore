@@ -26,7 +26,7 @@ namespace BookStore.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddBook([FromBody] Book newBook)
+        public async Task<IActionResult> AddBook(Book newBook)
         {
             newBook.Id = Guid.NewGuid();
             await _bookDbContext.Books.AddAsync(newBook);
@@ -36,7 +36,7 @@ namespace BookStore.Controllers
         }
 
         [HttpGet("{id:Guid}")]
-        public async Task<IActionResult> GetBookById([FromRoute] Guid id)
+        public async Task<IActionResult> GetBookById(Guid id)
         {
             Book book = await _bookDbContext.Books.FirstOrDefaultAsync(x => x.Id == id);
 
