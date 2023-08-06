@@ -18,9 +18,7 @@
             <a class="btn btn-primary" [routerLink]="['book', book.id]" role="button">Edit</a>
           </td>
           <td>
-            <form class="col-4 col-md-3" action="/snippets/delete-snippet/{{book.id}}" method="post">
-                <input type="submit" class="btn btn-danger m-1 btn-sm" name="delete" value="Delete">
-            </form>
+            <button class="btn btn-danger" (click)="deleteBook(book.id)">Delete</button>
           </td>
         </tr>
 </table>

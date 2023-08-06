@@ -24,7 +24,7 @@ addBookObj:Book={
 addBook():void {
   this.bookService.addBook(this.addBookObj)
     .subscribe({
-      next:() => this.router.navigate(['home']),
+      next:() => this.router.navigate(['books']),
       error:(error) => console.log(error.message)
     })
 }
