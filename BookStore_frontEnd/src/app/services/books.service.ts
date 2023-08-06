@@ -21,4 +21,12 @@ export class BooksService {
     addBookObj.id='403c2466-550c-4104-9e6c-016a5fea56ba'
     return this.httpClient.post<Book>(`${this.baseApiUrl}${this.url}`,addBookObj)
   }
+
+  getBook(id: string): Observable<Book> {
+    return this.httpClient.get<Book>(`${this.baseApiUrl}${this.url}/${id}`)
+  }
+
+  updateBook(updatedBook: Book, id: string): Observable<Book> {
+    return this.httpClient.put<Book>(`${this.baseApiUrl}${this.url}/${id}`, updatedBook)
+  }
 }

@@ -19,7 +19,7 @@ export class BookListComponent implements OnInit {
   ngOnInit(): void {
     this.booksService.getAllBooks()
       .subscribe({
-        next: (books) => this.books = books,
+        next: (books) => {this.books = books},
         error: (err) => console.log(err.message)
       })
   }

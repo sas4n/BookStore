@@ -1,21 +1,23 @@
 <div class="container">
-    <h1 class="page-header">Add Book</h1>
-    <form #form = "ngForm" (ngSubmit)="addBook()">
+    <h1 class="page-header">Edit Book</h1>
+    <form #form = "ngForm" (ngSubmit)="updateBook()" >
+        <input type="hidden" class="form-control" id="id"
+          name="id" [(ngModel)]="responseBook.id">
         <div class="mb-3 col-6">
           <label for="title" class="form-label">Title</label>
           <input type="text" class="form-control" id="title"
-          name="title" [(ngModel)]="addBookObj.title" placeholder="title">
+          name="title" [(ngModel)]="responseBook.title" placeholder="title">
         </div> 
         <div class="mb-3 col-6">
           <label for="author" class="form-label">Author</label>
           <input type="text" class="form-control" id="author"
-          name="author" [(ngModel)]="addBookObj.author" placeholder="author">
+          name="author" [(ngModel)]="responseBook.author" placeholder="author">
         </div>
         <div class="mb-3 col-6">
             <label for="publication-date" class="form-label">Publication date</label>
             <input type="date" class="form-control" id="publication-date"
-            name="publication-date" [(ngModel)]="addBookObj.publicationDate">
+            name="publication-date" [(ngModel)]="responseBook.publicationDate">
           </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Update</button>
     </form>
 </div>
