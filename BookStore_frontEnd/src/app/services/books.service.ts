@@ -16,4 +16,9 @@ export class BooksService {
   getAllBooks(): Observable<Book[]> {
    return  this.httpClient.get<Book[]>(`${this.baseApiUrl}${this.url}`)
   }
+
+  addBook(addBookObj: Book): Observable<Book> {
+    addBookObj.id='403c2466-550c-4104-9e6c-016a5fea56ba'
+    return this.httpClient.post<Book>(`${this.baseApiUrl}${this.url}`,addBookObj)
+  }
 }
