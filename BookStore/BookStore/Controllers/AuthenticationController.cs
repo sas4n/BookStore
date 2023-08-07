@@ -1,7 +1,6 @@
 ﻿using BookStore.DB;
 using BookStore.Helpers;
 using BookStore.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,7 +17,7 @@ namespace BookStore.Controllers
             _userDbContext = userDbContext;
         }
 
-        [HttpPost]
+        [HttpPost("register")]
         public async Task<IActionResult> RegisterUser (User newUser)
         {
             if(await _userDbContext.Users.AnyAsync(user => user.Username == newUser.Username)) 
@@ -35,6 +34,24 @@ namespace BookStore.Controllers
             await _userDbContext.SaveChangesAsync();
 
             return Ok(user);
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login (User userObj)
+        {
+            if (userObj == null) { return BadRequest(); }
+
+            var user = await _userDbContext.Users.FindAsync(userObj.Username);
+            if (user == null)
+            {
+                return BadRequest(new { Message = "User or password is wrong." });
+            }
+
+            bool userIsVerified = PasswordHandler.IsVerified(user.Password, userObj.Password);
+             
+            if (!userIsVerified) { return BadRequest(new { Message = "User or password is wrong." }); }
+
+            return Ok(new { Message = "User logged in"});
         }
     }
 }
