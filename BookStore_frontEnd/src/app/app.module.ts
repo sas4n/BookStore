@@ -10,6 +10,8 @@ import { HttpClientModule} from '@angular/common/http';
 import { AddBookComponent } from './Components/addBook/add-book/add-book.component';
 import { FormsModule } from '@angular/forms';
 import { SingleBookComponent } from './Components/single-book/single-book.component';
+import { LoginComponent } from './Components/account/login/login.component';
+import { SignupComponent } from './Components/account/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { SingleBookComponent } from './Components/single-book/single-book.compon
     HomeComponent,
     BookListComponent,
     AddBookComponent,
-    SingleBookComponent
+    SingleBookComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
