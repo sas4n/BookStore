@@ -13,6 +13,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<BookDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("BookDbString"))
 );
+builder.Services.AddDbContext<UserDbContext>(options => options.UseSqlServer(
+   builder.Configuration.GetConnectionString("BookDbString" ))
+);
 
 var app = builder.Build();
 
