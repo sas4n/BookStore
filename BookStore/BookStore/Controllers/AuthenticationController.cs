@@ -26,7 +26,7 @@ namespace BookStore.Controllers
                 return BadRequest(new { Message = "Username already exists" });
             }
             string hashedPassword = PasswordHandler.Hash(newUser.Password);
-            User user = new User
+            User user = new()
             {
                 Username = newUser.Username,
                 Password = hashedPassword

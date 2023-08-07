@@ -19,5 +19,16 @@ namespace BookStore.Helpers
 
             return string.Join (Delimiter, Convert.ToBase64String(salt), Convert.ToBase64String(hash));
         }
+
+        public static bool IsVerified (string hashedPassword, string userPassword)
+        {
+            String[] hashedElement = hashedPassword.Split(Delimiter);
+            byte[] salt = Convert.FromBase64String(hashedElement[0]);
+            byte[] hash = Convert.FromBase64String(hashedElement[1]);
+
+            byte[] hashedUserPassword = Rfc2898DeriveBytes.Pbkdf2(userPassword, salt, Iterations, hashAlgorithmName, KeySize);
+
+            return CryptographicOperations.FixedTimeEquals(hash, hashedUserPassword);
+        } 
     }
 }
