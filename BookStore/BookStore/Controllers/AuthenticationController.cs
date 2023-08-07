@@ -3,6 +3,7 @@ using BookStore.Helpers;
 using BookStore.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.Controllers
 {
@@ -20,6 +21,10 @@ namespace BookStore.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterUser (User newUser)
         {
+            if(await _userDbContext.Users.AnyAsync(user => user.Username == newUser.Username)) 
+            {
+                return BadRequest(new { Message = "Username already exists" });
+            }
             string hashedPassword = PasswordHandler.Hash(newUser.Password);
             User user = new User
             {
