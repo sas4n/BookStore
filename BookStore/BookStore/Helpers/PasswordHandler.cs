@@ -12,7 +12,7 @@ namespace BookStore.Helpers
         private static readonly HashAlgorithmName hashAlgorithmName = HashAlgorithmName.SHA256;
         private const char Delimiter = ';';
 
-        public string Hash (string password)
+        public static string Hash (string password)
         {
             Byte[] salt = RandomNumberGenerator.GetBytes(SaltSize);
             Byte[] hash = Rfc2898DeriveBytes.Pbkdf2(password, salt, Iterations, hashAlgorithmName, KeySize);
