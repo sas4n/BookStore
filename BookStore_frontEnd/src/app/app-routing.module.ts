@@ -24,10 +24,12 @@ const routes: Routes = [
   {
     path: 'books/add',
     component: AddBookComponent,
+    canActivate: [AuthenticationGuard]
   },
   {
     path: 'books/book/:id',
     component: SingleBookComponent,
+    canActivate: [AuthenticationGuard]
   }
 ];
 
