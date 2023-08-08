@@ -9,8 +9,9 @@ import { Book } from '../model/book';
 })
 export class BooksService {
 
-  baseApiUrl: string = environment.baseApiUrl
-  url: string = 'api/Books'
+  //baseApiUrl: string = environment.baseApiUrl
+  baseApiUrl = 'https://localhost:7250/'
+  url: string = 'api/Books' 
   constructor(private httpClient: HttpClient) { }
 
   getAllBooks(): Observable<Book[]> {

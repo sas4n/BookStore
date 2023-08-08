@@ -59,7 +59,7 @@ namespace BookStore.Controllers
             if (!userIsVerified) { return BadRequest(new { Message = "User or password is wrong." }); }
 
             string token = GenerateToken(userObj);
-
+            Console.WriteLine(token);
 
             return Ok(new { Message = "User logged in", Token = token});
         }
@@ -68,14 +68,13 @@ namespace BookStore.Controllers
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-            var claims = new[]
+           /* var claims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier,user.Username),
-                new Claim(ClaimTypes.Role,"user")
-            };
+                new Claim(ClaimTypes.NameIdentifier,user.Username)
+            };*/
             var token = new JwtSecurityToken(_configuration["Jwt:Issuer"],
                 _configuration["Jwt:Audience"],
-                claims,
+                null,
                 expires: DateTime.Now.AddMinutes(30),
                 signingCredentials: credentials);
 

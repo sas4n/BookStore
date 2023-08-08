@@ -70,6 +70,7 @@ namespace BookStore.Controllers
             return NoContent();
         }
 
+        
         [HttpDelete("{id:Guid}")]
         public async Task<IActionResult> DeleteBook(Guid id)
         {

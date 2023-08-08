@@ -8,20 +8,20 @@ import { User } from '../model/user';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  baseApiUrl: string = environment.baseApiUrl
+  baseApiUrl = 'https://localhost:7250/'
   url: string = 'api/Authentication'
   constructor(private httpClient: HttpClient) { }
 
   login(user: User): Observable<User> {
     return this.httpClient.post<User>(`${this.baseApiUrl}${this.url}/login`, user)
   }
-  
+
   storeToken(token: string):void {
     localStorage.setItem('token', token)
   }
 
-  getToken(): void {
-    localStorage.getItem('token')
+  getToken(): string |null{
+    return localStorage.getItem('token')
   }
 
   isLoggedIn(): boolean {
