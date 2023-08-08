@@ -1,8 +1,12 @@
-﻿using BookStore.DB;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using BookStore.DB;
 using BookStore.Helpers;
 using BookStore.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace BookStore.Controllers
 {
@@ -11,10 +15,13 @@ namespace BookStore.Controllers
     public class AuthenticationController : ControllerBase
     {
         private readonly UserDbContext _userDbContext;
+        private readonly IConfiguration _configuration;
 
-        public AuthenticationController(UserDbContext userDbContext)
+        public AuthenticationController(UserDbContext userDbContext, IConfiguration configuration)
         {
             _userDbContext = userDbContext;
+            _configuration = configuration;
+
         }
 
         [HttpPost("register")]
@@ -51,7 +58,28 @@ namespace BookStore.Controllers
              
             if (!userIsVerified) { return BadRequest(new { Message = "User or password is wrong." }); }
 
-            return Ok(new { Message = "User logged in"});
+            string token = GenerateToken(userObj);
+
+            return Ok(new { Message = "User logged in", Token = token});
+        }
+
+        private string GenerateToken(User user)
+        {
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.NameIdentifier,user.Username),
+                new Claim(ClaimTypes.Role,"user")
+            };
+            var token = new JwtSecurityToken(_configuration["Jwt:Issuer"],
+                _configuration["Jwt:Audience"],
+                claims,
+                expires: DateTime.Now.AddMinutes(30),
+                signingCredentials: credentials);
+
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }

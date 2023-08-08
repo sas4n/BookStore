@@ -1,24 +1,24 @@
 <div class="container justify-content-center mt-5">
-    <form class="col-sm-6 container justify-content-center">
+    <form class="col-sm-6 container justify-content-center" #Form="ngForm" (ngSubmit)="login()" >
         <!-- Email input -->
         <div class="form-outline mb-4" >
            <span>
                <fa-icon [icon]="envelope"></fa-icon> 
-               <input type="email" id="form2Example1" class="form-control col-2" />
+               <input type="text" id="username" name ="username" [(ngModel)]="user.username" class="form-control col-2" />
             </span> 
           
           
-          <label class="form-label" for="form2Example1">Email address</label>
+          <label class="form-label" for="username">Username</label>
         </div>
       
         <!-- Password input -->
         <div class="form-outline mb-4">
-          <input type="password" id="form2Example2" class="form-control" />
-          <label class="form-label" for="form2Example2">Password</label>
+          <input type="password" id="password" class="form-control" name="password" [(ngModel)]="user.password"/>
+          <label class="form-label"  for="password">Password</label>
         </div>
       
         <!-- Submit button -->
-        <button type="button" class="btn btn-primary btn-block mb-4">Sign in</button>
+        <button type="submit" class="btn btn-primary">login</button>
       
         <!-- Register buttons -->
         <div class="text-center">
