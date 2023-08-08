@@ -1,3 +1,4 @@
+import { AuthenticationGuard } from './guard/authentication.guard';
 import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './Components/account/login/login.component';
@@ -18,6 +19,7 @@ const routes: Routes = [
   {
     path: 'books',
     component: HomeComponent,
+    canActivate: [AuthenticationGuard]
   }, 
   {
     path: 'books/add',

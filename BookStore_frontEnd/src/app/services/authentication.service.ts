@@ -15,6 +15,7 @@ export class AuthenticationService {
   login(user: User): Observable<User> {
     return this.httpClient.post<User>(`${this.baseApiUrl}${this.url}/login`, user)
   }
+  
   storeToken(token: string):void {
     localStorage.setItem('token', token)
   }
@@ -25,5 +26,9 @@ export class AuthenticationService {
 
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token')
+  }
+
+  logout(): void {
+    localStorage.removeItem('token')
   }
 }

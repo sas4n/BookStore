@@ -60,6 +60,7 @@ namespace BookStore.Controllers
 
             string token = GenerateToken(userObj);
 
+
             return Ok(new { Message = "User logged in", Token = token});
         }
 

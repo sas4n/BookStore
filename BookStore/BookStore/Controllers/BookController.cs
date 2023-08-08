@@ -1,5 +1,6 @@
 ﻿using BookStore.DB;
 using BookStore.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,7 @@ namespace BookStore.Controllers
             _bookDbContext = bookDbContext;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAllBooks()
         {

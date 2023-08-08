@@ -23,10 +23,13 @@ export class LoginComponent {
   login():void {
     this.auth.login(this.user)
       .subscribe({
-        next:(result) => console.log(result),
+        next:(result:any) => {
+          console.log(result.token)
+         this.auth.storeToken(result.token)
+        },
         error:(error) => console.log(error)
       })
   }
 
-  
+
 }
