@@ -2,9 +2,9 @@
     <form class="col-sm-6 container justify-content-center" #Form="ngForm" (ngSubmit)="login()" >
         <!-- Email input -->
         <div class="form-outline mb-4" >
-           <span>
+           <span class="row">
                <fa-icon [icon]="envelope"></fa-icon> 
-               <input type="text" id="username" name ="username" [(ngModel)]="user.username" class="form-control col-2" />
+               <input type="text" id="username" name ="username" [(ngModel)]="user.username" class="col-2 form-control" />
             </span> 
           
           
@@ -18,7 +18,7 @@
         </div>
       
         <!-- Submit button -->
-        <button type="submit" class="btn btn-primary">login</button>
+        <button type="submit" class="btn btn-primary col-4">login</button>
       
         <!-- Register buttons -->
         <div class="text-center">

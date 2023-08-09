@@ -16,6 +16,10 @@ export class AuthenticationService {
     return this.httpClient.post<User>(`${this.baseApiUrl}${this.url}/login`, user)
   }
 
+  signup(user: User): Observable<User> {
+    return this.httpClient.post<User>(`${this.baseApiUrl}${this.url}/register`, user)
+  }
+
   storeToken(token: string):void {
     localStorage.setItem('token', token)
   }

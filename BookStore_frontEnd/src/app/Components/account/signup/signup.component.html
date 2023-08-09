@@ -1,1 +1,25 @@
-<p>signup works!</p>
+<div class="card justify-content-center mt-5">
+    <h2 class="header mt-header justify-content-center"> Sign up</h2>
+    <form class="col-sm-6 container justify-content-center" #Form="ngForm" (ngSubmit)="signup()" >
+        <!-- Email input -->
+        <div class="form-outline mb-4" >
+           <span class="row">
+               <input type="text" id="username" name ="username" [(ngModel)]="user.username" class="col-2 form-control" />
+            </span> 
+          
+          
+          <label class="form-label" for="username">Username</label>
+        </div>
+      
+        <!-- Password input -->
+        <div class="form-outline mb-4">
+          <input type="password" id="password" class="form-control" name="password" [(ngModel)]="user.password"/>
+          <label class="form-label"  for="password">Password</label>
+        </div>
+      
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-primary col-4">Register</button>
+
+    </form>
+</div>
+    
