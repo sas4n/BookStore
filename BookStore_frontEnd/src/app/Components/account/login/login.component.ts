@@ -25,7 +25,6 @@ export class LoginComponent {
     this.auth.login(this.user)
       .subscribe({
         next:(result:any) => {
-          console.log(result.token)
          this.auth.storeToken(result.token)
          this.router.navigate(['books'])
         },

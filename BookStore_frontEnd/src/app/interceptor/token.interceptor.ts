@@ -6,16 +6,17 @@ import {
   HttpEvent,
   HttpInterceptor
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  constructor(private auth: AuthenticationService) {}
+  constructor(private auth: AuthenticationService, private router: Router) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const token = this.auth.getToken();
-    console.log(token);
+
     if (token) {
       request= request.clone({
         setHeaders:{
@@ -23,7 +24,15 @@ export class TokenInterceptor implements HttpInterceptor {
         }
       })
     }
-    console.log(request.headers)
-    return next.handle(request);
+    
+    return next.handle(request).pipe(
+      catchError((err) =>{
+        if(err.status === 401) {
+          this.auth.logout()
+          this.router.navigate([''])
+        }
+        return throwError(()=> new Error('some error'))
+      })
+    );
   }
 }
